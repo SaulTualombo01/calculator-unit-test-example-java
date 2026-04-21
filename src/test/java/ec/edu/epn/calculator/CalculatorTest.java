@@ -1,16 +1,45 @@
 package ec.edu.epn.calculator;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CalculatorTest {
-    @Test
-    public void testSum() {
-       Calculator calculator = new Calculator();
-         int resultado = calculator.sum(2, 2);
-         if(resultado!=4){
-             Assert.fail();
-         }
+    private Calculator calculator;
+    @BeforeEach
+    public void setUp() {
+        calculator = new Calculator();
     }
 
+    @Test
+    public void testSum() {
+        int resultado = calculator.sum(2, 2);
+        assertEquals(4, resultado);
+    }
+
+    @Test
+    public void testMinus(){
+        int resultado = calculator.minus(2, 1);
+        assertEquals(1, resultado);
+    }
+
+    @Test
+    public void testDivideSuccess(){
+        int resultado = calculator.divide(10, 2);
+        assertEquals(5, resultado);
+    }
+
+    @Test
+    public void testMultiply(){
+        int resultado = calculator.multiply(3, 4);
+        assertEquals(12, resultado);
+    }
+
+    @Test
+    public void testDivideFail(){
+        assertThrows(ArithmeticException.class, () -> {
+            calculator.divide(10, 0);
+        });
+    }
 }
